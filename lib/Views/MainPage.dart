@@ -12,12 +12,31 @@ import 'package:techblog/Views/HomePage.dart';
 import 'package:techblog/Views/ProfilePage.dart';
 import 'package:techblog/gen/assets.gen.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  var selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     var texttheme = Theme.of(context).textTheme;
     var size = MediaQuery.of(context).size;
     double AppAlignment = size.width / 10;
+
+    List<Widget> pages = [
+      HomePage(
+        size: size,
+        texttheme: texttheme,
+        AppAlignment: AppAlignment,
+      ),
+      ProfilePage(
+        size: size,
+        texttheme: texttheme,
+        AppAlignment: AppAlignment,
+      ),
+    ];
 
     return SafeArea(
       child: Scaffold(
@@ -49,13 +68,18 @@ class MainPage extends StatelessWidget {
             children: [
               Center(
                 child: Positioned.fill(
-                  child: HomePage(
-                      size: size,
-                      texttheme: texttheme,
-                      AppAlignment: AppAlignment),
+                  child: pages[selectedIndex],
                 ),
               ),
-              BottomNav(size: size, AppAlignment: AppAlignment),
+              BottomNav(
+                size: size,
+                AppAlignment: AppAlignment,
+                Screenindex: (int value) {
+                  setState(() {
+                    selectedIndex = value;
+                  });
+                },
+              ),
             ],
           ),
         ),
@@ -65,14 +89,15 @@ class MainPage extends StatelessWidget {
 }
 
 class BottomNav extends StatelessWidget {
-  const BottomNav({
-    super.key,
-    required this.size,
-    required this.AppAlignment,
-  });
+  const BottomNav(
+      {super.key,
+      required this.size,
+      required this.AppAlignment,
+      required this.Screenindex});
 
   final Size size;
   final double AppAlignment;
+  final Function(int) Screenindex;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +126,7 @@ class BottomNav extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () => Screenindex(0),
                     icon: ImageIcon(Assets.icons.bottomNavHome.provider(),
                         color: Colors.white, size: 30)),
                 IconButton(
@@ -109,7 +134,7 @@ class BottomNav extends StatelessWidget {
                     icon: ImageIcon(Assets.icons.bottomNavWrite.provider(),
                         color: Colors.white, size: 30)),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () => Screenindex(1),
                     icon: ImageIcon(Assets.icons.bottomNavUser.provider(),
                         color: Colors.white, size: 30)),
               ],
