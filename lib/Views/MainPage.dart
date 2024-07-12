@@ -53,23 +53,21 @@ class _MainPageState extends State<MainPage> {
           padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
           child: Stack(
             children: [
-              Center(
-                child: Positioned.fill(
-                  child: IndexedStack(
-                    index: selectedIndex,
-                    children: [
-                      HomePage(
-                        size: size,
-                        texttheme: texttheme,
-                        AppAlignment: AppAlignment,
-                      ),
-                      ProfilePage(
-                        size: size,
-                        texttheme: texttheme,
-                        AppAlignment: AppAlignment,
-                      ),
-                    ],
-                  ),
+              Positioned.fill(
+                child: IndexedStack(
+                  index: selectedIndex,
+                  children: [
+                    HomePage(
+                      size: size,
+                      texttheme: texttheme,
+                      AppAlignment: AppAlignment,
+                    ),
+                    ProfilePage(
+                      size: size,
+                      texttheme: texttheme,
+                      AppAlignment: AppAlignment,
+                    ),
+                  ],
                 ),
               ),
               BottomNav(
