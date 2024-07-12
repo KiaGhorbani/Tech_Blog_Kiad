@@ -9,4 +9,8 @@ class Strings {
   static const String MyFavBlogs = "مقالات مورد علاقه من";
   static const String MyFavPodcasts = "پادکست های مورد علاقه من";
   static const String Signout = "خروج از حساب کاربری";
+  static const String Regintro = """به تک‌بلاگ خوش اومدی
+
+برای ارسال مطلب و پادکست باید حتما 
+ثبت نام کنی """;
 }

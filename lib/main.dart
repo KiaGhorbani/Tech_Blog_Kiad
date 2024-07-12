@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:techblog/MyColors.dart';
+import 'package:techblog/Views/RegisterPage_intro.dart';
 import 'package:techblog/Views/Splash_Screen.dart';
 import 'package:techblog/gen/assets.gen.dart';
 
@@ -34,6 +35,13 @@ class MyApp extends StatelessWidget {
           Locale('fa', '') //farsi
         ],
         theme: ThemeData(
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                // رنگ پس‌زمینه دکمه
+                foregroundColor:
+                    MaterialStateProperty.all(Colors.white), // رنگ متن دکمه
+              ),
+            ),
             fontFamily: 'dana',
             textTheme: TextTheme(
                 headlineLarge: TextStyle(
@@ -65,6 +73,6 @@ class MyApp extends StatelessWidget {
                     fontFamily: 'dana',
                     fontSize: 13,
                     fontWeight: FontWeight.w300))),
-        home: splashscreen());
+        home: RegisterpageIntro());
   }
 }

@@ -25,19 +25,6 @@ class _MainPageState extends State<MainPage> {
     var size = MediaQuery.of(context).size;
     double AppAlignment = size.width / 10;
 
-    List<Widget> pages = [
-      HomePage(
-        size: size,
-        texttheme: texttheme,
-        AppAlignment: AppAlignment,
-      ),
-      ProfilePage(
-        size: size,
-        texttheme: texttheme,
-        AppAlignment: AppAlignment,
-      ),
-    ];
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -68,7 +55,21 @@ class _MainPageState extends State<MainPage> {
             children: [
               Center(
                 child: Positioned.fill(
-                  child: pages[selectedIndex],
+                  child: IndexedStack(
+                    index: selectedIndex,
+                    children: [
+                      HomePage(
+                        size: size,
+                        texttheme: texttheme,
+                        AppAlignment: AppAlignment,
+                      ),
+                      ProfilePage(
+                        size: size,
+                        texttheme: texttheme,
+                        AppAlignment: AppAlignment,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               BottomNav(
