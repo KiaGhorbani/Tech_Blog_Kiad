@@ -4,18 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:techblog/Components.dart';
 import 'package:techblog/Models/Data_Models.dart';
 import 'package:techblog/Models/fakedata.dart';
 import 'package:techblog/MyColors.dart';
 import 'package:techblog/MyStrings.dart';
 import 'package:techblog/Views/HomePage.dart';
 import 'package:techblog/Views/ProfilePage.dart';
+import 'package:techblog/Views/RegisterPage_intro.dart';
 import 'package:techblog/gen/assets.gen.dart';
 
 class MainPage extends StatefulWidget {
   @override
   State<MainPage> createState() => _MainPageState();
 }
+
+final GlobalKey<ScaffoldState> RamKey = GlobalKey();
 
 class _MainPageState extends State<MainPage> {
   var selectedIndex = 0;
@@ -27,16 +31,78 @@ class _MainPageState extends State<MainPage> {
 
     return SafeArea(
       child: Scaffold(
+        key: RamKey,
+        drawer: Drawer(
+            backgroundColor: SolidColors.ScaffoldBg,
+            child: Padding(
+              padding: EdgeInsets.only(right: AppAlignment, left: AppAlignment),
+              child: ListView(
+                children: [
+                  DrawerHeader(
+                    child: Image.asset(
+                      Assets.images.logo.path,
+                      scale: 3,
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "پروفایل کاربری",
+                      style: texttheme.titleLarge,
+                    ),
+                    onTap: () {},
+                  ),
+                  Divider(
+                    color: SolidColors.DividerColor,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "درباره تک بلاگ",
+                      style: texttheme.titleLarge,
+                    ),
+                    onTap: () {},
+                  ),
+                  Divider(
+                    color: SolidColors.DividerColor,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "اشتراک گذاری تک بلاگ",
+                      style: texttheme.titleLarge,
+                    ),
+                    onTap: () {},
+                  ),
+                  Divider(
+                    color: SolidColors.DividerColor,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "تک بلاگ در گیت هاب",
+                      style: texttheme.titleLarge,
+                    ),
+                    onTap: () {},
+                  ),
+                  Divider(
+                    color: SolidColors.DividerColor,
+                  ),
+                ],
+              ),
+            )),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           backgroundColor: SolidColors.ScaffoldBg,
           //Mainpage UpperMenu
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Icon(
-                Icons.menu,
-                color: Colors.black,
+              InkWell(
+                onTap: () {
+                  RamKey.currentState!.openDrawer();
+                },
+                child: Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                ),
               ),
               Image(
                 image: Assets.images.logo.provider(),
@@ -62,6 +128,7 @@ class _MainPageState extends State<MainPage> {
                       texttheme: texttheme,
                       AppAlignment: AppAlignment,
                     ),
+                    RegisterpageIntro(),
                     ProfilePage(
                       size: size,
                       texttheme: texttheme,
@@ -101,7 +168,7 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 0,
+      bottom: AppAlignment / 2,
       right: 0,
       left: 0,
       child: Container(
@@ -129,11 +196,11 @@ class BottomNav extends StatelessWidget {
                     icon: ImageIcon(Assets.icons.bottomNavHome.provider(),
                         color: Colors.white, size: 30)),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () => Screenindex(1),
                     icon: ImageIcon(Assets.icons.bottomNavWrite.provider(),
                         color: Colors.white, size: 30)),
                 IconButton(
-                    onPressed: () => Screenindex(1),
+                    onPressed: () => Screenindex(2),
                     icon: ImageIcon(Assets.icons.bottomNavUser.provider(),
                         color: Colors.white, size: 30)),
               ],

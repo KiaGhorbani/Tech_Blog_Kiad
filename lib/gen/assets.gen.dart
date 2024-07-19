@@ -51,6 +51,9 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Arrow.png
+  AssetGenImage get arrow => const AssetGenImage('assets/images/Arrow.png');
+
   /// File path: assets/images/Codeyad.png
   AssetGenImage get codeyad => const AssetGenImage('assets/images/Codeyad.png');
 
@@ -78,8 +81,17 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/programming.png');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [codeyad, geek, logo, meta, profileAvatar, ramzun, techBot, programming];
+  List<dynamic> get values => [
+        arrow,
+        codeyad,
+        geek,
+        logo,
+        meta,
+        profileAvatar,
+        ramzun,
+        techBot,
+        programming
+      ];
 }
 
 class Assets {

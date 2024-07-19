@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:techblog/MyColors.dart';
+import 'package:techblog/Views/ChooseCategories.dart';
 import 'package:techblog/Views/MainPage.dart';
 import 'package:techblog/Views/RegisterPage_intro.dart';
 import 'package:techblog/Views/Splash_Screen.dart';
@@ -25,6 +26,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var texttheme = Theme.of(context).textTheme;
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: const [
@@ -36,11 +38,27 @@ class MyApp extends StatelessWidget {
           Locale('fa', '') //farsi
         ],
         theme: ThemeData(
+            inputDecorationTheme: InputDecorationTheme(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(width: 2)),
+                filled: true,
+                fillColor: Colors.white),
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ButtonStyle(
-                foregroundColor:
-                    MaterialStateProperty.all(Colors.white), // رنگ متن دکمه
-              ),
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  textStyle: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.pressed)) {
+                      return texttheme.titleLarge;
+                    }
+                    return texttheme.bodyLarge;
+                  }),
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.pressed)) {
+                      return SolidColors.ColorTitle;
+                    }
+                    return SolidColors.PrimaryColor;
+                  })),
             ),
             fontFamily: 'dana',
             textTheme: TextTheme(
@@ -72,7 +90,17 @@ class MyApp extends StatelessWidget {
                 bodyLarge: TextStyle(
                     fontFamily: 'dana',
                     fontSize: 13,
-                    fontWeight: FontWeight.w300))),
-        home: MainPage());
+                    fontWeight: FontWeight.w300),
+                bodyMedium: TextStyle(
+                    fontFamily: 'dana',
+                    fontSize: 13,
+                    color: SolidColors.HintText,
+                    fontWeight: FontWeight.w300),
+                displayMedium: TextStyle(
+                    fontFamily: 'dana',
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700))),
+        home: splashscreen());
   }
 }

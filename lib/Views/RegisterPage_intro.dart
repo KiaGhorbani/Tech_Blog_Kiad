@@ -1,10 +1,12 @@
-// ignore_for_file: deprecated_member_use, curly_braces_in_flow_control_structures, unused_local_variable, prefer_const_constructors, sort_child_properties_last, file_names, body_might_complete_normally_nullable, unused_import
+// ignore_for_file: deprecated_member_use, curly_braces_in_flow_control_structures, unused_local_variable, prefer_const_constructors, sort_child_properties_last, file_names, body_might_complete_normally_nullable, unused_import, prefer_interpolation_to_compose_strings, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techblog/MyColors.dart';
 import 'package:techblog/MyStrings.dart';
+import 'package:techblog/Views/ChooseCategories.dart';
 import 'package:techblog/gen/assets.gen.dart';
+import 'package:validators/validators.dart';
 
 class RegisterpageIntro extends StatelessWidget {
   @override
@@ -34,23 +36,154 @@ class RegisterpageIntro extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 32),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //BottomSheet Enter Email
+                    showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom),
+                            child: Container(
+                                height: size.height / 2.5,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                    )),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      //Please Enter Email
+                                      Text(
+                                        Strings.EnterEmail,
+                                        style: texttheme.titleLarge,
+                                      ),
+                                      //Enter Email
+                                      Padding(
+                                        padding: const EdgeInsets.all(32),
+                                        child: TextField(
+                                          onChanged: (value) {
+                                            print("Email is " +
+                                                isEmail(value).toString());
+                                          },
+                                          //style: texttheme.bodyMedium,
+                                          textDirection: TextDirection.ltr,
+                                          textAlign: TextAlign.center,
+                                          decoration: InputDecoration(
+                                              hintText: "Techblog@gmail.com",
+                                              hintStyle: texttheme.bodyMedium),
+                                        ),
+                                      ),
+                                      //Proceed
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            //Activation code bottomsheet
+                                            showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                context: context,
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: MediaQuery.of(
+                                                                context)
+                                                            .viewInsets
+                                                            .bottom),
+                                                    child: Container(
+                                                        height:
+                                                            size.height / 2.5,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          16),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          16),
+                                                                )),
+                                                        child: Center(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              //Please Enter The Code
+                                                              Text(
+                                                                Strings
+                                                                    .EnterCode,
+                                                                style: texttheme
+                                                                    .titleLarge,
+                                                              ),
+                                                              //Enter Code
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        32),
+                                                                child:
+                                                                    TextField(
+                                                                  onChanged:
+                                                                      (value) {
+                                                                    print("Email is " +
+                                                                        isEmail(value)
+                                                                            .toString());
+                                                                  },
+                                                                  //style: texttheme.bodyMedium,
+                                                                  textDirection:
+                                                                      TextDirection
+                                                                          .ltr,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  decoration: InputDecoration(
+                                                                      hintText:
+                                                                          "******",
+                                                                      hintStyle:
+                                                                          texttheme
+                                                                              .bodyMedium),
+                                                                ),
+                                                              ),
+                                                              //Proceed
+                                                              ElevatedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .push(MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                Categories()));
+                                                                  },
+                                                                  child: Text(
+                                                                      "ادامه"))
+                                                            ],
+                                                          ),
+                                                        )),
+                                                  );
+                                                });
+                                          },
+                                          child: Text("ادامه"))
+                                    ],
+                                  ),
+                                )),
+                          );
+                        });
+                  },
                   child: Text(
                     "بزن بریم",
-                  ),
-                  style: ButtonStyle(
-                      textStyle: MaterialStateProperty.resolveWith((states) {
-                    if (states.contains(MaterialState.pressed)) {
-                      return texttheme.titleLarge;
-                    }
-                    return texttheme.headlineLarge;
-                  }), backgroundColor:
-                          MaterialStateProperty.resolveWith((states) {
-                    if (states.contains(MaterialState.pressed)) {
-                      return SolidColors.PrimaryColor;
-                    }
-                    return SolidColors.ColorTitle;
-                  }))),
+                  )),
             ),
           ],
         ),

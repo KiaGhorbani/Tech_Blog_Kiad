@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:techblog/Components.dart';
 import 'package:techblog/MyColors.dart';
 
 import '../Models/fakedata.dart';
@@ -269,6 +270,7 @@ class HomePageHotBlogs extends StatelessWidget {
                     BlogList[index].Title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
+                    style: texttheme.displayMedium,
                   ),
                 ),
               )
@@ -334,31 +336,9 @@ class HomePageTagList extends StatelessWidget {
           return Padding(
               padding:
                   EdgeInsets.fromLTRB(0, 8, index == 0 ? AppAlignment : 20, 8),
-              child: Container(
-                height: 60,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                    gradient: LinearGradient(
-                        colors: GradientColors.HashtagsColor,
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft)),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-                  child: Row(
-                    children: [
-                      ImageIcon(
-                        Assets.icons.hashtag.provider(),
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(Hashtaglist[index].Title,
-                          style: texttheme.headlineMedium)
-                    ],
-                  ),
-                ),
+              child: Hashtags(
+                texttheme: texttheme,
+                index: index,
               ));
         },
       ),

@@ -21,6 +21,8 @@ List<Hashtag> Hashtaglist = [
   Hashtag(Title: "فلاتر"),
 ];
 
+List<Hashtag> ChosenCats = [];
+
 List<BlogSample> BlogList = [
   BlogSample(
       id: 1,
