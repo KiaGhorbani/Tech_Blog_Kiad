@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:techblog/MyColors.dart';
+import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/Views/ChooseCategories.dart';
 import 'package:techblog/Views/MainPage.dart';
 import 'package:techblog/Views/RegisterPage_intro.dart';

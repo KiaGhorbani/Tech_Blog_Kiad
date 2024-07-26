@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:techblog/Components.dart';
-import 'package:techblog/MyColors.dart';
+import 'package:techblog/Components/Components.dart';
+import 'package:techblog/Components/MyColors.dart';
 
 import '../Models/fakedata.dart';
-import '../MyStrings.dart';
+import '../Components/MyStrings.dart';
 import '../gen/assets.gen.dart';
 
 class HomePage extends StatelessWidget {

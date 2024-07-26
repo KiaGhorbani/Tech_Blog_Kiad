@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:techblog/Views/MainPage.dart';
-import 'package:techblog/MyColors.dart';
+import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/gen/assets.gen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 

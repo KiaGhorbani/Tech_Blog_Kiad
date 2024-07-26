@@ -1,9 +1,12 @@
-// ignore_for_file: file_names, unnecessary_import, must_be_immutable, prefer_typing_uninitialized_variables
+// ignore_for_file: file_names, unnecessary_import, must_be_immutable, prefer_typing_uninitialized_variables, non_constant_identifier_names
+
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:techblog/Models/fakedata.dart';
 import 'package:techblog/gen/assets.gen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'MyColors.dart';
 
@@ -63,5 +66,15 @@ class Hashtags extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+TechBlogGithubLink(String url) async {
+  var uri = Uri.parse(url);
+
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
+  } else {
+    log("ERROR while trying to open ${uri.toString()} ");
   }
 }

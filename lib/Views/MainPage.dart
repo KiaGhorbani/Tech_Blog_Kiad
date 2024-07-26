@@ -1,28 +1,26 @@
-// ignore_for_file: use_key_in_widget_constructors, camel_case_types, file_names, prefer_const_constructors, deprecated_member_use, unnecessary_import, sized_box_for_whitespace, non_constant_identifier_names, unused_import
+// ignore_for_file: use_key_in_widget_constructors, camel_case_types, file_names, prefer_const_constructors, deprecated_member_use, unnecessary_import, sized_box_for_whitespace, non_constant_identifier_names, unused_import, must_be_immutable
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:techblog/Components.dart';
+import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:techblog/Components/Components.dart';
 import 'package:techblog/Models/Data_Models.dart';
 import 'package:techblog/Models/fakedata.dart';
-import 'package:techblog/MyColors.dart';
-import 'package:techblog/MyStrings.dart';
+import 'package:techblog/Components/MyColors.dart';
+import 'package:techblog/Components/MyStrings.dart';
 import 'package:techblog/Views/HomePage.dart';
 import 'package:techblog/Views/ProfilePage.dart';
 import 'package:techblog/Views/RegisterPage_intro.dart';
 import 'package:techblog/gen/assets.gen.dart';
 
-class MainPage extends StatefulWidget {
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
 final GlobalKey<ScaffoldState> RamKey = GlobalKey();
 
-class _MainPageState extends State<MainPage> {
-  var selectedIndex = 0;
+class MainPage extends StatelessWidget {
+  RxInt selectedIndex = 0.obs;
   @override
   Widget build(BuildContext context) {
     var texttheme = Theme.of(context).textTheme;
@@ -59,7 +57,9 @@ class _MainPageState extends State<MainPage> {
                       "درباره تک بلاگ",
                       style: texttheme.titleLarge,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      TechBlogGithubLink(Strings.TechBlogGithub);
+                    },
                   ),
                   Divider(
                     color: SolidColors.DividerColor,
@@ -69,7 +69,9 @@ class _MainPageState extends State<MainPage> {
                       "اشتراک گذاری تک بلاگ",
                       style: texttheme.titleLarge,
                     ),
-                    onTap: () {},
+                    onTap: () async {
+                      await Share.share(Strings.Share);
+                    },
                   ),
                   Divider(
                     color: SolidColors.DividerColor,
@@ -79,7 +81,9 @@ class _MainPageState extends State<MainPage> {
                       "تک بلاگ در گیت هاب",
                       style: texttheme.titleLarge,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      TechBlogGithubLink(Strings.TechBlogGithub);
+                    },
                   ),
                   Divider(
                     color: SolidColors.DividerColor,
@@ -120,30 +124,30 @@ class _MainPageState extends State<MainPage> {
           child: Stack(
             children: [
               Positioned.fill(
-                child: IndexedStack(
-                  index: selectedIndex,
-                  children: [
-                    HomePage(
-                      size: size,
-                      texttheme: texttheme,
-                      AppAlignment: AppAlignment,
-                    ),
-                    RegisterpageIntro(),
-                    ProfilePage(
-                      size: size,
-                      texttheme: texttheme,
-                      AppAlignment: AppAlignment,
-                    ),
-                  ],
+                child: Obx(
+                  () => IndexedStack(
+                    index: selectedIndex.value,
+                    children: [
+                      HomePage(
+                        size: size,
+                        texttheme: texttheme,
+                        AppAlignment: AppAlignment,
+                      ),
+                      RegisterpageIntro(),
+                      ProfilePage(
+                        size: size,
+                        texttheme: texttheme,
+                        AppAlignment: AppAlignment,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               BottomNav(
                 size: size,
                 AppAlignment: AppAlignment,
                 Screenindex: (int value) {
-                  setState(() {
-                    selectedIndex = value;
-                  });
+                  selectedIndex.value = value;
                 },
               ),
             ],

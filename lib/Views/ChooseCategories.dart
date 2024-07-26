@@ -1,12 +1,12 @@
-// ignore_for_file: non_constant_identifier_names, file_names
+// ignore_for_file: non_constant_identifier_names, file_names, avoid_print
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:techblog/Components.dart';
+import 'package:techblog/Components/Components.dart';
 import 'package:techblog/Models/fakedata.dart';
-import 'package:techblog/MyColors.dart';
-import 'package:techblog/MyStrings.dart';
+import 'package:techblog/Components/MyColors.dart';
+import 'package:techblog/Components/MyStrings.dart';
 import 'package:techblog/gen/assets.gen.dart';
 
 class Categories extends StatefulWidget {
