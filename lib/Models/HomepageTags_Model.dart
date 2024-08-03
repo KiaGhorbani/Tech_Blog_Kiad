@@ -1,13 +1,15 @@
-class TopArticles {
+// ignore_for_file: file_names
+
+class HomePageTagModel {
   String? id;
   String? title;
 
-  TopArticles({
+  HomePageTagModel({
     required this.id,
     required this.title,
   });
 
-  TopArticles.fromJson(Map<String, dynamic> element) {
+  HomePageTagModel.fromJson(Map<String, dynamic> element) {
     id = element["id"];
     title = element["title"];
   }

@@ -8,10 +8,12 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:techblog/Components/Components.dart';
+import 'package:techblog/Components/URLs.dart';
 import 'package:techblog/Models/Data_Models.dart';
 import 'package:techblog/Models/fakedata.dart';
 import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/Components/MyStrings.dart';
+import 'package:techblog/Services/HTTPMethod_Sevice.dart';
 import 'package:techblog/Views/HomePage.dart';
 import 'package:techblog/Views/ProfilePage.dart';
 import 'package:techblog/Views/RegisterPage_intro.dart';
@@ -21,6 +23,7 @@ final GlobalKey<ScaffoldState> RamKey = GlobalKey();
 
 class MainPage extends StatelessWidget {
   RxInt selectedIndex = 0.obs;
+
   @override
   Widget build(BuildContext context) {
     var texttheme = Theme.of(context).textTheme;

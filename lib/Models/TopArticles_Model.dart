@@ -1,4 +1,8 @@
-class TopArticles {
+// ignore_for_file: file_names
+
+import 'package:techblog/Components/URLs.dart';
+
+class TopArticlesModel {
   String? id;
   String? title;
   String? image;
@@ -9,7 +13,7 @@ class TopArticles {
   String? status;
   String? createdAt;
 
-  TopArticles(
+  TopArticlesModel(
       {required this.author,
       required this.id,
       required this.title,
@@ -20,10 +24,10 @@ class TopArticles {
       required this.status,
       required this.createdAt});
 
-  TopArticles.fromJson(Map<String, dynamic> element) {
+  TopArticlesModel.fromJson(Map<String, dynamic> element) {
     id = element["id"];
     title = element["title"];
-    image = element["image"];
+    image = Urls.hostDlURL + element["image"];
     catId = element["cat_id"];
     catName = element["cat_name"];
     author = element["author"];

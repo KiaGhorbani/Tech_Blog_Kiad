@@ -1,24 +1,34 @@
-class TopPodcasts {
+// ignore_for_file: file_names
+
+import 'package:techblog/Components/URLs.dart';
+
+class TopPodcastsModel {
   String? id;
   String? title;
   String? poster;
+  String? catName;
+  String? status;
   String? publisher;
   String? view;
   String? createdAt;
 
-  TopPodcasts(
+  TopPodcastsModel(
       {required this.id,
       required this.title,
       required this.poster,
+      required this.catName,
+      required this.status,
       required this.publisher,
       required this.view,
       required this.createdAt});
 
-  TopPodcasts.fromJson(Map<String, dynamic> element) {
+  TopPodcastsModel.fromJson(Map<String, dynamic> element) {
     id = element["id"];
     title = element["title"];
-    poster = element["poster"];
-    publisher = element["publisher"];
+    poster = Urls.hostDlURL + element["poster"];
+    catName = element["cat_name"];
+    status = element["status"];
+    publisher = element["author"];
     view = element["view"];
     createdAt = element["created_at"];
   }
