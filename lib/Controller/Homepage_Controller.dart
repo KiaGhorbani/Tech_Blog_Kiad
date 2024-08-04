@@ -10,10 +10,11 @@ import '../Models/TopPodcasts_Model.dart';
 import '../Services/HTTPMethod_Sevice.dart';
 
 class HomePageController extends GetxController {
-  late Rx<HomePagePosterModel> poster;
+  late Rx<HomePagePosterModel> poster = HomePagePosterModel().obs;
   RxList<HomePageTagModel> homepagetags = RxList();
   RxList<TopArticlesModel> homepagetopvisited = RxList();
   RxList<TopPodcastsModel> homepagetoppodcasts = RxList();
+  RxBool loading = false.obs;
 
   @override
   void onInit() {
@@ -23,6 +24,8 @@ class HomePageController extends GetxController {
   }
 
   getHomeItems() async {
+    loading.value = true;
+
     var response = await HttpMethod().getmethod(Urls.HomeURL);
 
     if (response.statusCode == 200) {
@@ -33,6 +36,14 @@ class HomePageController extends GetxController {
       response.data['top_podcasts'].forEach((element) {
         homepagetoppodcasts.add(TopPodcastsModel.fromJson(element));
       });
+
+      response.data['tags'].forEach((element) {
+        homepagetags.add(HomePageTagModel.fromJson(element));
+      });
+
+      poster.value = HomePagePosterModel.fromJson(response.data['poster']);
+
+      loading.value = false;
     }
   }
 }

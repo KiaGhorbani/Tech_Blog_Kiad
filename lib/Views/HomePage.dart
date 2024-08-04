@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names, deprecated_member_use, must_be_immutable, unused_element, dead_code
+// ignore_for_file: file_names, non_constant_identifier_names, deprecated_member_use, must_be_immutable, unused_element, dead_code, sort_child_properties_last, prefer_interpolation_to_compose_strings
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,9 +59,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                 placeholder: (context, url) =>
-                                    const SpinKitThreeInOut(
-                                      color: SolidColors.PrimaryColor,
-                                    ),
+                                    const InappLoading(),
                                 errorWidget: (context, url, error) =>
                                     const Icon(
                                       Icons.image_not_supported,
@@ -106,7 +104,7 @@ class HomePage extends StatelessWidget {
                     child: SizedBox(
                       width: size.width / 2.5,
                       child: Text(
-                        BlogList[index].Title,
+                        homePageController.homepagetopvisited[index].title!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: texttheme.displayMedium,
@@ -151,9 +149,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                 placeholder: (context, url) =>
-                                    const SpinKitThreeInOut(
-                                      color: SolidColors.PrimaryColor,
-                                    ),
+                                    const InappLoading(),
                                 errorWidget: (context, url, error) =>
                                     const Icon(
                                       Icons.image_not_supported,
@@ -214,35 +210,139 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          HomePagePoster(size: size, texttheme: texttheme),
-          HomePageTagList(AppAlignment: AppAlignment, texttheme: texttheme),
-          const SizedBox(
-            height: 32,
-          ),
-          HomePageHotBlogHeadline(
-              AppAlignment: AppAlignment, texttheme: texttheme),
-          const SizedBox(
-            height: 5,
-          ),
-          topVisitedBlogs(),
-          const SizedBox(
-            height: 32,
-          ),
-          HomePagePodcastHeadline(
-              AppAlignment: AppAlignment, texttheme: texttheme),
-          const SizedBox(
-            height: 5,
-          ),
-          topVisitedPodcasts(),
-          const SizedBox(
-            height: 70,
-          )
-        ],
-      ),
+    Widget HomePoster() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          children: [
+            Container(
+              width: size.width / 1.25,
+              height: size.height / 4.2,
+              child: CachedNetworkImage(
+                  imageUrl: homePageController.poster.value.image!,
+                  imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
+                        ),
+                      ),
+                  placeholder: (context, url) => const SpinKitThreeInOut(
+                        color: SolidColors.PrimaryColor,
+                      ),
+                  errorWidget: (context, url, error) => const Icon(
+                        Icons.image_not_supported,
+                        size: 45,
+                      )),
+              foregroundDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: const LinearGradient(
+                      colors: GradientColors.HomePosterCoverGradient,
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter)),
+            ),
+            Positioned(
+              bottom: 8,
+              right: 0,
+              left: 0,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        Posterwidgets["Author"] +
+                            " - " +
+                            Posterwidgets["Publish Time"],
+                        style: texttheme.displayLarge,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            Posterwidgets["Views"],
+                            style: texttheme.displayLarge,
+                          ),
+                          const SizedBox(width: 4),
+                          const Icon(
+                            CupertinoIcons.eye_fill,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        homePageController.poster.value.title!,
+                        style: texttheme.headlineLarge,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget Tags() {
+      return SizedBox(
+        height: 50,
+        child: ListView.builder(
+          itemCount: homePageController.homepagetags.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return Padding(
+                padding: EdgeInsets.fromLTRB(
+                    0, 8, index == 0 ? AppAlignment : 20, 8),
+                child: Hashtags(
+                  texttheme: texttheme,
+                  index: index,
+                ));
+          },
+        ),
+      );
+    }
+
+    return Obx(
+      () => SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: homePageController.loading.value == false
+              ? Column(
+                  children: [
+                    HomePoster(),
+                    Tags(),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    HomePageHotBlogHeadline(
+                        AppAlignment: AppAlignment, texttheme: texttheme),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    topVisitedBlogs(),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    HomePagePodcastHeadline(
+                        AppAlignment: AppAlignment, texttheme: texttheme),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    topVisitedPodcasts(),
+                    const SizedBox(
+                      height: 70,
+                    )
+                  ],
+                )
+              : const InappLoading()),
     );
   }
 }
@@ -306,121 +406,6 @@ class HomePageHotBlogHeadline extends StatelessWidget {
           Text(
             Strings.HotBlogs,
             style: texttheme.headlineSmall,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class HomePageTagList extends StatelessWidget {
-  const HomePageTagList({
-    super.key,
-    required this.AppAlignment,
-    required this.texttheme,
-  });
-
-  final double AppAlignment;
-  final TextTheme texttheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: ListView.builder(
-        itemCount: Hashtaglist.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Padding(
-              padding:
-                  EdgeInsets.fromLTRB(0, 8, index == 0 ? AppAlignment : 20, 8),
-              child: Hashtags(
-                texttheme: texttheme,
-                index: index,
-              ));
-        },
-      ),
-    );
-  }
-}
-
-class HomePagePoster extends StatelessWidget {
-  const HomePagePoster({
-    super.key,
-    required this.size,
-    required this.texttheme,
-  });
-
-  final Size size;
-  final TextTheme texttheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Container(
-            width: size.width / 1.25,
-            height: size.height / 4.2,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                image: DecorationImage(
-                    image: AssetImage(Posterwidgets["Poster Image"]),
-                    fit: BoxFit.cover)),
-            foregroundDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                gradient: const LinearGradient(
-                    colors: GradientColors.HomePosterCoverGradient,
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter)),
-          ),
-          Positioned(
-            bottom: 8,
-            right: 0,
-            left: 0,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      Posterwidgets["Author"] +
-                          " - " +
-                          Posterwidgets["Publish Time"],
-                      style: texttheme.displayLarge,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          Posterwidgets["Views"],
-                          style: texttheme.displayLarge,
-                        ),
-                        const SizedBox(width: 4),
-                        const Icon(
-                          CupertinoIcons.eye_fill,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      Posterwidgets["Summary"],
-                      style: texttheme.headlineLarge,
-                    ),
-                  ),
-                )
-              ],
-            ),
           )
         ],
       ),

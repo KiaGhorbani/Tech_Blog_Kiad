@@ -4,7 +4,9 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:techblog/Models/fakedata.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:techblog/Controller/Homepage_Controller.dart';
 import 'package:techblog/gen/assets.gen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -61,7 +63,8 @@ class Hashtags extends StatelessWidget {
             const SizedBox(
               width: 8,
             ),
-            Text(Hashtaglist[index].Title, style: texttheme.headlineMedium)
+            Text(Get.find<HomePageController>().homepagetags[index].title!,
+                style: texttheme.headlineMedium)
           ],
         ),
       ),
@@ -78,3 +81,42 @@ TechBlogGithubLink(String url) async {
     log("ERROR while trying to open ${uri.toString()} ");
   }
 }
+
+class InappLoading extends StatelessWidget {
+  const InappLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SpinKitThreeInOut(
+      color: SolidColors.PrimaryColor,
+    );
+  }
+}
+
+//AppBar
+/*PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10, left: 10, top: 7),
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            actions: [
+              Text(
+                "مقالات جدید ",
+                style: texttheme.displayMedium,
+              )
+            ],
+            leading: Container(
+              decoration: BoxDecoration(
+                  color: SolidColors.PrimaryColor.withAlpha(150),
+                  shape: BoxShape.circle),
+              child: const Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),*/
