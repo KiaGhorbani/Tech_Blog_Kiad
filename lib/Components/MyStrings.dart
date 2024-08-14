@@ -3,6 +3,7 @@ class Strings {
   static const String TechBlogGithub =
       "https://github.com/sasansafari/techblog";
   static const String HotBlogs = "مشاهده داغ ترین نوشته ها";
+  static const String RelatedBlogs = "نوشته های مرتبط";
   static const String Hotpodcasts = "مشاهده داغ ترین پادکست ها";
   static const String RelatedArticles = "نوشته های مرتبط";
   static const String SendArticle = "ارسال مقاله";

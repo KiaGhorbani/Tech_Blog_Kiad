@@ -4,16 +4,16 @@ import 'package:get/get.dart';
 import 'package:techblog/Components/URLs.dart';
 import 'package:techblog/Models/HomepagePoster_Model.dart';
 
+import '../Models/Articles_Model.dart';
 import '../Models/HomepageTags_Model.dart';
-import '../Models/TopArticles_Model.dart';
-import '../Models/TopPodcasts_Model.dart';
+import '../Models/Podcasts_Model.dart';
 import '../Services/HTTPMethod_Sevice.dart';
 
 class HomePageController extends GetxController {
   late Rx<HomePagePosterModel> poster = HomePagePosterModel().obs;
   RxList<HomePageTagModel> homepagetags = RxList();
-  RxList<TopArticlesModel> homepagetopvisited = RxList();
-  RxList<TopPodcastsModel> homepagetoppodcasts = RxList();
+  RxList<ArticlesModel> homepagetopvisited = RxList();
+  RxList<PodcastsModel> homepagetoppodcasts = RxList();
   RxBool loading = false.obs;
 
   @override
@@ -30,11 +30,11 @@ class HomePageController extends GetxController {
 
     if (response.statusCode == 200) {
       response.data['top_visited'].forEach((element) {
-        homepagetopvisited.add(TopArticlesModel.fromJson(element));
+        homepagetopvisited.add(ArticlesModel.fromJson(element));
       });
 
       response.data['top_podcasts'].forEach((element) {
-        homepagetoppodcasts.add(TopPodcastsModel.fromJson(element));
+        homepagetoppodcasts.add(PodcastsModel.fromJson(element));
       });
 
       response.data['tags'].forEach((element) {

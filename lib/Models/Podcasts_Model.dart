@@ -2,7 +2,7 @@
 
 import 'package:techblog/Components/URLs.dart';
 
-class TopPodcastsModel {
+class PodcastsModel {
   String? id;
   String? title;
   String? poster;
@@ -12,7 +12,7 @@ class TopPodcastsModel {
   String? view;
   String? createdAt;
 
-  TopPodcastsModel(
+  PodcastsModel(
       {required this.id,
       required this.title,
       required this.poster,
@@ -22,7 +22,7 @@ class TopPodcastsModel {
       required this.view,
       required this.createdAt});
 
-  TopPodcastsModel.fromJson(Map<String, dynamic> element) {
+  PodcastsModel.fromJson(Map<String, dynamic> element) {
     id = element["id"];
     title = element["title"];
     poster = Urls.hostDlURL + element["poster"];

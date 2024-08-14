@@ -6,8 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/Views/ArticlePage.dart';
+import 'package:techblog/Views/NewArticlesPage.dart';
 import 'package:techblog/Views/ChooseCategories.dart';
 import 'package:techblog/Views/MainPage.dart';
 import 'package:techblog/Views/RegisterPage_intro.dart';
@@ -28,16 +30,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var texttheme = Theme.of(context).textTheme;
-    return MaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('fa', '') //farsi
-        ],
+        locale: const Locale('fa'),
         theme: ThemeData(
             inputDecorationTheme: InputDecorationTheme(
                 border: OutlineInputBorder(
@@ -95,13 +90,13 @@ class MyApp extends StatelessWidget {
                 bodyMedium: TextStyle(
                     fontFamily: 'dana',
                     fontSize: 13,
-                    color: SolidColors.HintText,
+                    color: Color.fromARGB(255, 145, 143, 143),
                     fontWeight: FontWeight.w300),
                 displayMedium: TextStyle(
                     fontFamily: 'dana',
                     fontSize: 14,
                     color: Colors.black,
                     fontWeight: FontWeight.w700))),
-        home: ArticlePage());
+        home: NewArticlesPage());
   }
 }

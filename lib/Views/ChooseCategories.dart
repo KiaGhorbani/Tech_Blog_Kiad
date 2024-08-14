@@ -78,8 +78,8 @@ class _CategoriesState extends State<Categories> {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 5,
-                              mainAxisSpacing: 5,
-                              childAspectRatio: 0.3),
+                              mainAxisSpacing: 3,
+                              childAspectRatio: 0.268),
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {

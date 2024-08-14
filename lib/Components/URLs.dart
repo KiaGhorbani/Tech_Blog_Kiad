@@ -4,4 +4,6 @@ class Urls {
   static const BaseURL = "https://techblog.sasansafari.com/Techblog/api/";
   static const hostDlURL = "https://techblog.sasansafari.com";
   static const HomeURL = BaseURL + "home/?command=index";
+  static const ArticlepageURL =
+      BaseURL + "article/get.php?command=new&user_id=";
 }

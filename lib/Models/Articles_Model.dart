@@ -2,7 +2,7 @@
 
 import 'package:techblog/Components/URLs.dart';
 
-class TopArticlesModel {
+class ArticlesModel {
   String? id;
   String? title;
   String? image;
@@ -11,9 +11,10 @@ class TopArticlesModel {
   String? author;
   String? view;
   String? status;
+  //String? isfavorite;
   String? createdAt;
 
-  TopArticlesModel(
+  ArticlesModel(
       {required this.author,
       required this.id,
       required this.title,
@@ -22,9 +23,10 @@ class TopArticlesModel {
       required this.catName,
       required this.view,
       required this.status,
+      //this.isfavorite,
       required this.createdAt});
 
-  TopArticlesModel.fromJson(Map<String, dynamic> element) {
+  ArticlesModel.fromJson(Map<String, dynamic> element) {
     id = element["id"];
     title = element["title"];
     image = Urls.hostDlURL + element["image"];
