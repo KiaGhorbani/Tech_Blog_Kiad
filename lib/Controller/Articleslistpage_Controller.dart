@@ -20,7 +20,6 @@ class ArticleslistpageController extends GetxController {
 
   getArticleslistItems() async {
     loading.value = true;
-    //TODO var response = await HttpMethod().getmethod(Urls.HomeURL + userid);
 
     var response = await HttpMethod().getmethod(Urls.ArticlepageURL);
 

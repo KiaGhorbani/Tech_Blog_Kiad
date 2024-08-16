@@ -305,6 +305,8 @@ class HomePage extends StatelessWidget {
                 child: Hashtags(
                   texttheme: texttheme,
                   index: index,
+                  dependency:
+                      Get.find<HomePageController>().homepagetags[index].title!,
                 ));
           },
         ),

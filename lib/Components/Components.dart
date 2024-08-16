@@ -5,8 +5,6 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
-import 'package:techblog/Controller/Homepage_Controller.dart';
 import 'package:techblog/gen/assets.gen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,14 +30,15 @@ class ProjectDivider extends StatelessWidget {
 }
 
 class Hashtags extends StatelessWidget {
-  Hashtags({
-    super.key,
-    required this.texttheme,
-    required this.index,
-  });
+  Hashtags(
+      {super.key,
+      required this.texttheme,
+      required this.index,
+      required this.dependency});
 
   final TextTheme texttheme;
   var index;
+  var dependency;
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +62,7 @@ class Hashtags extends StatelessWidget {
             const SizedBox(
               width: 8,
             ),
-            Text(Get.find<HomePageController>().homepagetags[index].title!,
-                style: texttheme.headlineMedium)
+            Text(dependency, style: texttheme.headlineMedium)
           ],
         ),
       ),

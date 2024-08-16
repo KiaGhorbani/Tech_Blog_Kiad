@@ -3,11 +3,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:techblog/Components/Components.dart';
 import 'package:techblog/Models/fakedata.dart';
 import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/Components/MyStrings.dart';
 import 'package:techblog/gen/assets.gen.dart';
+
+import '../Controller/Homepage_Controller.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -94,6 +97,9 @@ class _CategoriesState extends State<Categories> {
                           child: Hashtags(
                             texttheme: texttheme,
                             index: index,
+                            dependency: Get.find<HomePageController>()
+                                .homepagetags[index]
+                                .title!,
                           ),
                         );
                       },

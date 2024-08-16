@@ -1,15 +1,15 @@
 // ignore_for_file: file_names
 
-class HomePageTagModel {
+class TagModel {
   String? id;
   String? title;
 
-  HomePageTagModel({
+  TagModel({
     required this.id,
     required this.title,
   });
 
-  HomePageTagModel.fromJson(Map<String, dynamic> element) {
+  TagModel.fromJson(Map<String, dynamic> element) {
     id = element["id"];
     title = element["title"];
   }

@@ -58,7 +58,7 @@ class NewArticlesPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    articlepageController.userid.value =
+                    articlepageController.id.value =
                         int.parse(articleslistController.articles[index].id!);
                     Get.to(Articlepage());
                   },

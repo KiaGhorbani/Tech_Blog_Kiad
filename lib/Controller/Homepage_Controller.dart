@@ -5,13 +5,13 @@ import 'package:techblog/Components/URLs.dart';
 import 'package:techblog/Models/HomepagePoster_Model.dart';
 
 import '../Models/Articles_Model.dart';
-import '../Models/HomepageTags_Model.dart';
 import '../Models/Podcasts_Model.dart';
+import '../Models/Tags_Model.dart';
 import '../Services/HTTPMethod_Sevice.dart';
 
 class HomePageController extends GetxController {
   late Rx<HomePagePosterModel> poster = HomePagePosterModel().obs;
-  RxList<HomePageTagModel> homepagetags = RxList();
+  RxList<TagModel> homepagetags = RxList();
   RxList<ArticlesModel> homepagetopvisited = RxList();
   RxList<PodcastsModel> homepagetoppodcasts = RxList();
   RxBool loading = false.obs;
@@ -38,7 +38,7 @@ class HomePageController extends GetxController {
       });
 
       response.data['tags'].forEach((element) {
-        homepagetags.add(HomePageTagModel.fromJson(element));
+        homepagetags.add(TagModel.fromJson(element));
       });
 
       poster.value = HomePagePosterModel.fromJson(response.data['poster']);
