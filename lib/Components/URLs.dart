@@ -6,4 +6,5 @@ class Urls {
   static const HomeURL = BaseURL + "home/?command=index";
   static const ArticlepageURL =
       BaseURL + "article/get.php?command=new&user_id=";
+  static const Registration = BaseURL + "register/action.php";
 }

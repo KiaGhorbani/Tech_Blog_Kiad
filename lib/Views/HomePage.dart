@@ -7,6 +7,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:techblog/Components/Components.dart';
 import 'package:techblog/Components/MyColors.dart';
+import 'package:techblog/Controller/Articlepage_Controller.dart';
+import 'package:techblog/Controller/Articleslistpage_Controller.dart';
+import 'package:techblog/Views/NewArticlesPage.dart';
 
 import '../Controller/Homepage_Controller.dart';
 import '../Models/fakedata.dart';
@@ -22,6 +25,8 @@ class HomePage extends StatelessWidget {
   });
 
   HomePageController homePageController = Get.put(HomePageController());
+  ArticlepageController articlepagecontroller =
+      Get.put(ArticlepageController());
 
   final Size size;
   final TextTheme texttheme;
@@ -37,81 +42,87 @@ class HomePage extends StatelessWidget {
             itemCount: homePageController.homepagetopvisited.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.only(right: index == 0 ? AppAlignment : 15),
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                            height: size.height / 5.3,
-                            width: size.width / 2.5,
-                            child: CachedNetworkImage(
-                                imageUrl: homePageController
-                                    .homepagetopvisited[index].image!,
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover),
+              return GestureDetector(
+                onTap: () {
+                  articlepagecontroller.getArticlepageItems(
+                      homePageController.homepagetopvisited[index].id!);
+                },
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: index == 0 ? AppAlignment : 15),
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                              height: size.height / 5.3,
+                              width: size.width / 2.5,
+                              child: CachedNetworkImage(
+                                  imageUrl: homePageController
+                                      .homepagetopvisited[index].image!,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover),
+                                        ),
                                       ),
+                                  placeholder: (context, url) =>
+                                      const InappLoading(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(
+                                        Icons.image_not_supported,
+                                        size: 45,
+                                      ))),
+                          Positioned(
+                            bottom: 8,
+                            right: 0,
+                            left: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  homePageController
+                                      .homepagetopvisited[index].author!,
+                                  style: texttheme.displayLarge,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      homePageController
+                                          .homepagetopvisited[index].view!,
+                                      style: texttheme.displayLarge,
                                     ),
-                                placeholder: (context, url) =>
-                                    const InappLoading(),
-                                errorWidget: (context, url, error) =>
+                                    const SizedBox(width: 8),
                                     const Icon(
-                                      Icons.image_not_supported,
-                                      size: 45,
-                                    ))),
-                        Positioned(
-                          bottom: 8,
-                          right: 0,
-                          left: 0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                homePageController
-                                    .homepagetopvisited[index].author!,
-                                style: texttheme.displayLarge,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    homePageController
-                                        .homepagetopvisited[index].view!,
-                                    style: texttheme.displayLarge,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Icon(
-                                    CupertinoIcons.eye_fill,
-                                    color: Colors.white,
-                                    size: 18,
-                                  ),
-                                ],
-                              )
-                            ],
+                                      CupertinoIcons.eye_fill,
+                                      color: Colors.white,
+                                      size: 18,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(right: index == 0 ? AppAlignment : 15),
-                    child: SizedBox(
-                      width: size.width / 2.5,
-                      child: Text(
-                        homePageController.homepagetopvisited[index].title!,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: texttheme.displayMedium,
+                        ],
                       ),
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: index == 0 ? AppAlignment : 15),
+                      child: SizedBox(
+                        width: size.width / 2.5,
+                        child: Text(
+                          homePageController.homepagetopvisited[index].title!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: texttheme.displayMedium,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               );
             },
           ),
@@ -299,15 +310,26 @@ class HomePage extends StatelessWidget {
           itemCount: homePageController.homepagetags.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return Padding(
-                padding: EdgeInsets.fromLTRB(
-                    0, 8, index == 0 ? AppAlignment : 20, 8),
-                child: Hashtags(
-                  texttheme: texttheme,
-                  index: index,
-                  dependency:
-                      Get.find<HomePageController>().homepagetags[index].title!,
-                ));
+            return GestureDetector(
+              onTap: () async {
+                var tagid = homePageController.homepagetags[index].id!;
+                await Get.find<ArticleslistpageController>()
+                    .getArticleslistItemsfromTags(tagid);
+                Get.to(NewArticlesPage(
+                    appbartitle:
+                        homePageController.homepagetags[index].title!));
+              },
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      0, 8, index == 0 ? AppAlignment : 20, 8),
+                  child: Hashtags(
+                    texttheme: texttheme,
+                    index: index,
+                    dependency: Get.find<HomePageController>()
+                        .homepagetags[index]
+                        .title!,
+                  )),
+            );
           },
         ),
       );
@@ -394,22 +416,27 @@ class HomePageHotBlogHeadline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: AppAlignment),
-      child: Row(
-        children: [
-          ImageIcon(
-            Assets.icons.bluePen.provider(),
-            color: SolidColors.MainPageTopics,
-          ),
-          const SizedBox(
-            width: 6,
-          ),
-          Text(
-            Strings.HotBlogs,
-            style: texttheme.headlineSmall,
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        Get.to(NewArticlesPage(appbartitle: "داغ ترین نوشته ها"));
+      },
+      child: Padding(
+        padding: EdgeInsets.only(right: AppAlignment),
+        child: Row(
+          children: [
+            ImageIcon(
+              Assets.icons.bluePen.provider(),
+              color: SolidColors.MainPageTopics,
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            Text(
+              Strings.HotBlogs,
+              style: texttheme.headlineSmall,
+            )
+          ],
+        ),
       ),
     );
   }

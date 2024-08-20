@@ -7,6 +7,7 @@ import '../Models/ArticleInfo_Model.dart';
 import '../Models/Articles_Model.dart';
 import '../Models/Tags_Model.dart';
 import '../Services/HTTPMethod_Sevice.dart';
+import '../Views/ArticlePage.dart';
 
 class ArticlepageController extends GetxController {
   RxBool loading = false.obs;
@@ -20,7 +21,9 @@ class ArticlepageController extends GetxController {
   //   super.onInit();
   // }
 
-  getArticlepageItems() async {
+  getArticlepageItems(var id) async {
+    articleInfo = ArticleInfo().obs;
+
     loading.value = true;
 
     var userid = '';
@@ -30,15 +33,19 @@ class ArticlepageController extends GetxController {
     if (response.statusCode == 200) {
       articleInfo.value = ArticleInfo.fromJson(response.data);
 
+      articlepagetags.clear();
       response.data['tags'].forEach((element) {
         articlepagetags.add(TagModel.fromJson(element));
       });
 
+      relatedarticles.clear();
       response.data['related'].forEach((element) {
         relatedarticles.add(ArticlesModel.fromJson(element));
       });
 
       loading.value = false;
+
+      Get.to(Articlepage());
     }
   }
 }

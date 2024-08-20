@@ -1,14 +1,18 @@
-// ignore_for_file: deprecated_member_use, curly_braces_in_flow_control_structures, unused_local_variable, prefer_const_constructors, sort_child_properties_last, file_names, body_might_complete_normally_nullable, unused_import, prefer_interpolation_to_compose_strings, avoid_print
+// ignore_for_file: deprecated_member_use, curly_braces_in_flow_control_structures, unused_local_variable, prefer_const_constructors, sort_child_properties_last, file_names, body_might_complete_normally_nullable, unused_import, prefer_interpolation_to_compose_strings, avoid_print, use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/Components/MyStrings.dart';
+import 'package:techblog/Controller/Registerpage_Controller.dart';
 import 'package:techblog/Views/ChooseCategories.dart';
 import 'package:techblog/gen/assets.gen.dart';
 import 'package:validators/validators.dart';
 
 class RegisterpageIntro extends StatelessWidget {
+  RegisterpageController registerpageController =
+      Get.put(RegisterpageController());
   @override
   Widget build(BuildContext context) {
     var texttheme = Theme.of(context).textTheme;
@@ -68,11 +72,12 @@ class RegisterpageIntro extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.all(32),
                                         child: TextField(
+                                          controller: registerpageController
+                                              .EmailTextEditingController,
                                           onChanged: (value) {
                                             print("Email is " +
                                                 isEmail(value).toString());
                                           },
-                                          //style: texttheme.bodyMedium,
                                           textDirection: TextDirection.ltr,
                                           textAlign: TextAlign.center,
                                           decoration: InputDecoration(
@@ -82,7 +87,8 @@ class RegisterpageIntro extends StatelessWidget {
                                       ),
                                       //Proceed
                                       ElevatedButton(
-                                          onPressed: () {
+                                          onPressed: () async {
+                                            registerpageController.Register();
                                             Navigator.pop(context);
                                             //Activation code bottomsheet
                                             showModalBottomSheet(
@@ -135,6 +141,9 @@ class RegisterpageIntro extends StatelessWidget {
                                                                         32),
                                                                 child:
                                                                     TextField(
+                                                                  controller:
+                                                                      registerpageController
+                                                                          .VerifyCodetextEditingController,
                                                                   onChanged:
                                                                       (value) {
                                                                     print("Email is " +
@@ -160,11 +169,8 @@ class RegisterpageIntro extends StatelessWidget {
                                                               ElevatedButton(
                                                                   onPressed:
                                                                       () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .push(MaterialPageRoute(
-                                                                            builder: (context) =>
-                                                                                Categories()));
+                                                                    registerpageController
+                                                                        .Verify();
                                                                   },
                                                                   child: Text(
                                                                       "ادامه"))

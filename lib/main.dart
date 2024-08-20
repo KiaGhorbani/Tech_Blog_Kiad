@@ -15,14 +15,16 @@ import 'package:techblog/Views/MainPage.dart';
 import 'package:techblog/Views/RegisterPage_intro.dart';
 import 'package:techblog/Views/Splash_Screen.dart';
 import 'package:techblog/gen/assets.gen.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: SolidColors.statusBarColor,
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: SolidColors.systemNavigationBarColor,
       systemNavigationBarIconBrightness: Brightness.dark));
 
+  await GetStorage.init();
   runApp(MyApp());
 }
 
@@ -97,6 +99,6 @@ class MyApp extends StatelessWidget {
                     fontSize: 14,
                     color: Colors.black,
                     fontWeight: FontWeight.w700))),
-        home: NewArticlesPage());
+        home: MainPage());
   }
 }

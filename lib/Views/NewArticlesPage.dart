@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 import 'package:techblog/Components/Components.dart';
 import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/Controller/Articleslistpage_Controller.dart';
-import 'package:techblog/Views/ArticlePage.dart';
 
 import '../Controller/Articlepage_Controller.dart';
 
 class NewArticlesPage extends StatelessWidget {
-  NewArticlesPage({super.key});
+  NewArticlesPage({required this.appbartitle, super.key});
+  String appbartitle;
 
   ArticleslistpageController articleslistController =
       Get.put(ArticleslistpageController());
@@ -34,7 +34,7 @@ class NewArticlesPage extends StatelessWidget {
             backgroundColor: Colors.transparent,
             actions: [
               Text(
-                "مقالات جدید ",
+                appbartitle,
                 style: texttheme.displayMedium,
               )
             ],
@@ -58,9 +58,8 @@ class NewArticlesPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    articlepageController.id.value =
-                        int.parse(articleslistController.articles[index].id!);
-                    Get.to(Articlepage());
+                    articlepageController.getArticlepageItems(
+                        articleslistController.articles[index].id!);
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 3, 10),
