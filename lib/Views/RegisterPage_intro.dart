@@ -11,8 +11,7 @@ import 'package:techblog/gen/assets.gen.dart';
 import 'package:validators/validators.dart';
 
 class RegisterpageIntro extends StatelessWidget {
-  RegisterpageController registerpageController =
-      Get.put(RegisterpageController());
+  var registerpageController = Get.find<RegisterpageController>();
   @override
   Widget build(BuildContext context) {
     var texttheme = Theme.of(context).textTheme;

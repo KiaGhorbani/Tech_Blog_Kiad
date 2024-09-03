@@ -9,6 +9,7 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:techblog/Components/Components.dart';
 import 'package:techblog/Components/URLs.dart';
+import 'package:techblog/Controller/Registerpage_Controller.dart';
 import 'package:techblog/Models/Data_Models.dart';
 import 'package:techblog/Models/fakedata.dart';
 import 'package:techblog/Components/MyColors.dart';
@@ -203,7 +204,9 @@ class BottomNav extends StatelessWidget {
                     icon: ImageIcon(Assets.icons.bottomNavHome.provider(),
                         color: Colors.white, size: 30)),
                 IconButton(
-                    onPressed: () => Screenindex(1),
+                    onPressed: () {
+                      Get.find<RegisterpageController>().CheckLogin();
+                    },
                     icon: ImageIcon(Assets.icons.bottomNavWrite.provider(),
                         color: Colors.white, size: 30)),
                 IconButton(

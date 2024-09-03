@@ -12,7 +12,7 @@ import '../Views/ArticlePage.dart';
 class ArticlepageController extends GetxController {
   RxBool loading = false.obs;
   RxInt id = 0.obs;
-  Rx<ArticleInfo> articleInfo = ArticleInfo().obs;
+  Rx<ArticleInfo> articleInfo = ArticleInfo(null, null, null).obs;
   RxList<TagModel> articlepagetags = RxList();
   RxList<ArticlesModel> relatedarticles = RxList();
 
@@ -22,7 +22,7 @@ class ArticlepageController extends GetxController {
   // }
 
   getArticlepageItems(var id) async {
-    articleInfo = ArticleInfo().obs;
+    articleInfo = ArticleInfo(null, null, null).obs;
 
     loading.value = true;
 

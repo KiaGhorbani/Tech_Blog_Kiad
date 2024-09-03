@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, body_might_complete_normally_catch_error
 
 import 'dart:developer';
 
@@ -18,6 +18,10 @@ class HttpMethod {
       log(response.toString());
 
       return response;
+    }).catchError((error) {
+      if (error is DioError) {
+        return error.response!;
+      }
     });
   }
 
@@ -28,12 +32,16 @@ class HttpMethod {
         .post(url,
             data: dio_service.FormData.fromMap(map),
             options: Options(responseType: ResponseType.json, method: 'POST'))
-        .then((value) {
-      log(value.headers.toString());
-      log(value.data.toString());
-      log(value.statusCode.toString());
+        .then((response) {
+      log(response.headers.toString());
+      log(response.data.toString());
+      log(response.statusCode.toString());
 
-      return value;
+      return response;
+    }).catchError((error) {
+      if (error is DioError) {
+        return error.response!;
+      }
     });
   }
 }

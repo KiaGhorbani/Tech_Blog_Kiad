@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:techblog/Components/Components.dart';
 import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/Controller/Articleslistpage_Controller.dart';
+import 'package:techblog/main.dart';
 
 import '../Controller/Articlepage_Controller.dart';
 
@@ -16,8 +17,6 @@ class NewArticlesPage extends StatelessWidget {
 
   ArticleslistpageController articleslistController =
       Get.put(ArticleslistpageController());
-  ArticlepageController articlepageController =
-      Get.put(ArticlepageController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +37,18 @@ class NewArticlesPage extends StatelessWidget {
                 style: texttheme.displayMedium,
               )
             ],
-            leading: Container(
-              decoration: BoxDecoration(
-                  color: SolidColors.PrimaryColor.withAlpha(150),
-                  shape: BoxShape.circle),
-              child: const Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+            leading: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: SolidColors.PrimaryColor.withAlpha(150),
+                    shape: BoxShape.circle),
+                child: const Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -57,9 +61,10 @@ class NewArticlesPage extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
-                    articlepageController.getArticlepageItems(
+                  onTap: () async {
+                    await Get.find<ArticlepageController>().getArticlepageItems(
                         articleslistController.articles[index].id!);
+                    Get.toNamed(Routes.articleScreenRoute);
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 3, 10),

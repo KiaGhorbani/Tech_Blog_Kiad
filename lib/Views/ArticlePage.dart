@@ -16,8 +16,7 @@ import '../Controller/Articlepage_Controller.dart';
 import '../Controller/Articleslistpage_Controller.dart';
 
 class Articlepage extends StatelessWidget {
-  ArticlepageController articlepageController =
-      Get.put(ArticlepageController());
+  var articlepageController = Get.find<ArticlepageController>();
 
   @override
   @override
@@ -59,12 +58,17 @@ class Articlepage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(right: 5),
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    size: 24,
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.only(right: 5),
+                                    child: Icon(
+                                      Icons.arrow_back,
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      size: 24,
+                                    ),
                                   ),
                                 ),
                                 const Expanded(child: SizedBox()),

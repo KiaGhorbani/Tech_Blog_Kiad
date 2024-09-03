@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:techblog/Bindings.dart';
 import 'package:techblog/Components/MyColors.dart';
+import 'package:techblog/Controller/Registerpage_Controller.dart';
 import 'package:techblog/Views/ArticlePage.dart';
 import 'package:techblog/Views/NewArticlesPage.dart';
 import 'package:techblog/Views/ChooseCategories.dart';
@@ -16,6 +18,9 @@ import 'package:techblog/Views/RegisterPage_intro.dart';
 import 'package:techblog/Views/Splash_Screen.dart';
 import 'package:techblog/gen/assets.gen.dart';
 import 'package:get_storage/get_storage.dart';
+
+import 'Views/ArticleEdittingPage.dart';
+import 'Views/ArticleManagement.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -35,6 +40,24 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         locale: const Locale('fa'),
+        getPages: [
+          GetPage(
+              name: Routes.mainScreenRoute,
+              page: () => MainPage(),
+              binding: RegisterBindings()),
+          GetPage(
+              name: Routes.articleScreenRoute,
+              page: () => Articlepage(),
+              binding: ArticleBindings()),
+          GetPage(
+              name: Routes.manageArticleScreenRoute,
+              page: () => ArticleManagement(),
+              binding: ManageArticlesBindings()),
+          GetPage(
+              name: Routes.editArticleScreenRoute,
+              page: () => ArticleEdittingpage(),
+              binding: ManageArticlesBindings()),
+        ],
         theme: ThemeData(
             inputDecorationTheme: InputDecorationTheme(
                 border: OutlineInputBorder(
@@ -98,7 +121,19 @@ class MyApp extends StatelessWidget {
                     fontFamily: 'dana',
                     fontSize: 14,
                     color: Colors.black,
+                    fontWeight: FontWeight.w700),
+                labelSmall: TextStyle(
+                    fontFamily: 'dana',
+                    fontSize: 11,
+                    color: Colors.white,
                     fontWeight: FontWeight.w700))),
-        home: MainPage());
+        home: splashscreen());
   }
+}
+
+class Routes {
+  static String mainScreenRoute = '/MainScreen';
+  static String articleScreenRoute = '/ArticleScreen';
+  static String manageArticleScreenRoute = '/manageArticleScreen';
+  static String editArticleScreenRoute = '/editArticleScreen';
 }

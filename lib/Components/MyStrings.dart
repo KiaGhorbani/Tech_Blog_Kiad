@@ -29,4 +29,7 @@ class Strings {
   www.Sasansafari.com
   
   """;
+  static const String ManageArticle =
+      """هنوز هیچ مقاله ای به جامعه گیک های فارسی 
+اضافه نکردی !!!""";
 }
