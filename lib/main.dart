@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
                     color: SolidColors.PosterSubTitle),
                 headlineMedium: TextStyle(
                     fontFamily: 'dana',
-                    fontSize: 14,
+                    fontSize: 13.7,
                     color: Colors.white,
                     fontWeight: FontWeight.w300),
                 headlineSmall: TextStyle(

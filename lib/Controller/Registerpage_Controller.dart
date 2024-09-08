@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:techblog/Components/Storages.dart';
-import 'package:techblog/Components/URLs.dart';
+import 'package:techblog/Components/ApiConstants.dart';
 import 'package:techblog/Services/HTTPMethod_Sevice.dart';
 import 'package:techblog/Views/MainPage.dart';
 import 'package:techblog/gen/assets.gen.dart';

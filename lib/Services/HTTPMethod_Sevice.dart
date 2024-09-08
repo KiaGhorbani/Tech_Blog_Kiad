@@ -4,6 +4,8 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio_service;
+import 'package:get_storage/get_storage.dart';
+import 'package:techblog/Components/Storages.dart';
 
 class HttpMethod {
   Dio dio = Dio();
@@ -27,6 +29,11 @@ class HttpMethod {
 
   Future<dynamic> postmethod(Map<String, dynamic> map, String url) async {
     dio.options.headers["Content-Type"] = "application/json";
+    var token = GetStorage().read(StorageKeys.token);
+
+    if (token != null) {
+      dio.options.headers['authorization'] = "$token";
+    }
 
     return await dio
         .post(url,

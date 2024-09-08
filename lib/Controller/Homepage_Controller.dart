@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, avoid_print
 
 import 'package:get/get.dart';
-import 'package:techblog/Components/URLs.dart';
+import 'package:techblog/Components/ApiConstants.dart';
 import 'package:techblog/Models/HomepagePoster_Model.dart';
 
 import '../Models/Articles_Model.dart';

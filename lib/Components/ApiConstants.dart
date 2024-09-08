@@ -9,4 +9,15 @@ class Urls {
   static const ArticlepageURL =
       BaseURL + "article/get.php?command=new&user_id=";
   static const Registration = BaseURL + "register/action.php";
+  static const PostArticle = BaseURL + "article/post.php";
+}
+
+class PostArticleMapKeys {
+  static const title = "title";
+  static const content = "content";
+  static const cat_id = "cat_id";
+  static const tag_list = "tag_list";
+  static const user_id = "user_id";
+  static const image = "image";
+  static const command = "command";
 }

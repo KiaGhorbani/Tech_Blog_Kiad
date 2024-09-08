@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 
-import '../Components/URLs.dart';
+import '../Components/ApiConstants.dart';
 import '../Models/Articles_Model.dart';
 import '../Services/HTTPMethod_Sevice.dart';
 

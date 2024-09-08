@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, file_names
 
-import 'package:techblog/Components/URLs.dart';
+import 'package:techblog/Components/ApiConstants.dart';
 
 class ArticleInfo {
   String? id;

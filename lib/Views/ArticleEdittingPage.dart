@@ -12,13 +12,16 @@ import 'package:techblog/Components/Components.dart';
 import 'package:techblog/Components/MyColors.dart';
 import 'package:techblog/Controller/FileManagement_Controller.dart';
 import 'package:techblog/Services/Filemanagement.dart';
+import 'package:techblog/Views/ArticleBodyTextManage.dart';
 import 'package:techblog/gen/assets.gen.dart';
 
 import '../Components/MyStrings.dart';
 import '../Controller/ArticleManagement_Controller.dart';
+import '../Controller/Homepage_Controller.dart';
+
+var articlemanagementController = Get.find<ArticlemanagementController>();
 
 class ArticleEdittingpage extends StatelessWidget {
-  var articlemanagementController = Get.find<ArticlemanagementController>();
   FileManagementController fileManagementController =
       Get.put(FileManagementController());
 
@@ -56,6 +59,7 @@ class ArticleEdittingpage extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                 ),
+                //Add image button
                 Positioned(
                     top: 0,
                     left: 0,
@@ -148,25 +152,33 @@ class ArticleEdittingpage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            //Title
-            EditTitleHeadline(
-              AppAlignment: AppAlignment,
-              texttheme: texttheme,
-              text: "ویرایش عنوان مقاله",
+            //Edit Title
+            GestureDetector(
+              onTap: () {
+                getTitle();
+              },
+              child: EditTitleHeadline(
+                AppAlignment: AppAlignment,
+                texttheme: texttheme,
+                text: "ویرایش عنوان مقاله",
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(articlemanagementController.articleinfo.value.title!,
                   maxLines: 2, style: texttheme.titleLarge),
             ),
-
-            EditTitleHeadline(
-              AppAlignment: AppAlignment,
-              texttheme: texttheme,
-              text: "ویرایش بدنه مقاله",
+            //Edit Body Text
+            GestureDetector(
+              onTap: () {
+                Get.to(() => ArticleBodyTextManage());
+              },
+              child: EditTitleHeadline(
+                AppAlignment: AppAlignment,
+                texttheme: texttheme,
+                text: "ویرایش بدنه مقاله",
+              ),
             ),
-
-            //Body Text
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: HtmlWidget(
@@ -181,11 +193,36 @@ class ArticleEdittingpage extends StatelessWidget {
               height: 25,
             ),
 
-            EditTitleHeadline(
-              AppAlignment: AppAlignment,
-              texttheme: texttheme,
-              text: "انتخاب دسته بندی",
+            //Choose Article Categories
+            GestureDetector(
+              onTap: () {
+                ChooseCats(texttheme);
+              },
+              child: EditTitleHeadline(
+                AppAlignment: AppAlignment,
+                texttheme: texttheme,
+                text: "انتخاب دسته بندی",
+              ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  articlemanagementController.articleinfo.value.cat_name == null
+                      ? "دسته بندی مقاله را انتخاب کنید"
+                      : articlemanagementController.articleinfo.value.cat_name!,
+                  maxLines: 2,
+                  style: texttheme.titleLarge),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  articlemanagementController.storeArticle();
+                },
+                child: articlemanagementController.loading.value
+                    ? const Text("در حال ارسال مقاله")
+                    : const Text("ذخیره مقاله"))
           ]),
         ),
       )),
@@ -193,6 +230,7 @@ class ArticleEdittingpage extends StatelessWidget {
   }
 }
 
+//Edit Row
 class EditTitleHeadline extends StatelessWidget {
   const EditTitleHeadline({
     super.key,
@@ -226,4 +264,97 @@ class EditTitleHeadline extends StatelessWidget {
       ),
     );
   }
+}
+
+getTitle() {
+  Get.defaultDialog(
+      backgroundColor: const Color.fromARGB(255, 68, 4, 87),
+      title: "عنوان مقاله",
+      titleStyle: const TextStyle(color: SolidColors.ScaffoldBg),
+      content: TextField(
+        keyboardType: TextInputType.text,
+        controller: articlemanagementController.titleTextedittingcontroller,
+        decoration: const InputDecoration(
+          hintText: "عنوان دلخواهت را اینجا وارد کن",
+          hintStyle: TextStyle(color: SolidColors.ColorTitle),
+        ),
+      ),
+      confirm: ElevatedButton(
+          onPressed: () {
+            articlemanagementController.updateArticleTitle();
+          },
+          child: const Text(
+            "ذخیره",
+          )),
+      radius: 16);
+}
+
+Widget Categories(texttheme) {
+  var homepageController = Get.find<HomePageController>();
+  return SizedBox(
+    height: Get.height / 3.1,
+    child: GridView.builder(
+      itemCount: homepageController.homepagetags.length,
+      scrollDirection: Axis.vertical,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+            onTap: () async {
+              var tagid = homepageController.homepagetags[index].id!;
+              articlemanagementController.articleinfo.update((val) {
+                val?.cat_id = homepageController.homepagetags[index].id!;
+                val?.cat_name = homepageController.homepagetags[index].title!;
+              });
+              Get.back();
+            },
+            child: Container(
+              height: 60,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  color: Color.fromARGB(255, 68, 4, 87)),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(homepageController.homepagetags[index].title!,
+                        style: texttheme.headlineMedium)
+                  ],
+                ),
+              ),
+            ));
+      },
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 1.4),
+    ),
+  );
+}
+
+ChooseCats(TextTheme texttheme) {
+  Get.bottomSheet(
+      Container(
+        height: Get.height / 2.3,
+        decoration: const BoxDecoration(
+          color: SolidColors.ScaffoldBg,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Column(children: [
+            const Text("انتخاب دسته بندی"),
+            const SizedBox(
+              height: 8,
+            ),
+            Categories(texttheme),
+          ])),
+        ),
+      ),
+      isScrollControlled: true,
+      persistent: true);
 }

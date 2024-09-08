@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 
-import '../Components/URLs.dart';
+import '../Components/ApiConstants.dart';
 import '../Models/ArticleInfo_Model.dart';
 import '../Models/Articles_Model.dart';
 import '../Models/Tags_Model.dart';

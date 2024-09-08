@@ -42,17 +42,18 @@ dependencies:
   flutter_svg: ^2.0.10+1
   validators: ^3.0.0
   get: ^4.6.6
-  share_plus: ^7.2.2
+  share_plus: ^10.0.2
   url_launcher: ^6.3.0
   dio: ^5.5.0+1
   cached_network_image: ^3.3.1
-  flutter_widget_from_html: ^0.14.11
+  flutter_widget_from_html: ^0.15.2
   get_storage: ^2.1.1
   file_picker: ^8.1.2
+  html_editor_enhanced: ^2.6.0
 
 dev_dependencies:
-  build_runner:
-  flutter_gen_runner:
+  # build_runner:
+  # flutter_gen_runner:
   flutter_test:
     sdk: flutter
 
@@ -61,15 +62,15 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-flutter_gen:
-  integrations:
-    flutter_svg: true
+# flutter_gen:
+#   integrations:
+#     flutter_svg: true
 
 flutter:
 
